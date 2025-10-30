@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/server.ts","./src/config/enviorment.ts","./src/service/email.service.ts","./src/service/gemini.service.ts","./src/service/news.service.ts","./src/service/sms.service.ts","./src/service/whatspp.service.ts"],"version":"5.9.3"}
+{"root":["./src/cron-job.ts","./src/index.ts","./src/config/enviorment.ts","./src/service/email.service.ts","./src/service/gemini.service.ts","./src/service/news.service.ts","./src/service/sms.service.ts","./src/service/whatspp.service.ts"],"version":"5.9.3"}

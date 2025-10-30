@@ -18,6 +18,7 @@ import { GeminiService } from "./service/gemini.service.js";
 import { EmailService } from "./service/email.service.js";
 import { SMSService } from "./service/sms.service.js";
 import { WhatsAppMessageService } from "./service/whatspp.service.js";
+import { initCronJobs } from "./cron-job.js";
 const port = process.env.PORT || 8000;
 const news = new NewsService();
 const gemini = new GeminiService();
@@ -35,7 +36,7 @@ app.get("/test-digest", async (req, res) => {
         }
         const htmlDigest = combinedSummaries.join("<hr>");
         const smsDigest = combinedSummaries.map(s => s.slice(0, 120) + "...").join("\n");
-        // Send notifications (optional during testing)
+        // Send notifications
         await email.sendDigest("sobhansahoo2000@gmail.com", "📰 AI News Digest (Manual Test)", htmlDigest);
         await sms.sendSMS("+919040006148", smsDigest);
         await whatsappSms.sendWhatsApp("919040006148", smsDigest);
@@ -47,6 +48,7 @@ app.get("/test-digest", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+initCronJobs();
 app.listen(port, () => {
     console.log(`🚀 Test server running on http://localhost:${port}`);
 });
