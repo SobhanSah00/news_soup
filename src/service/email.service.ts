@@ -11,7 +11,7 @@ export class EmailService {
   async sendDigest(to: string, subject: string, htmlContent: string) {
     try {
       const { data, error } = await this.resend.emails.send({
-        from: `Daily Digest ${config.EMAIL_USER}`,
+        from: "onboarding@resend.dev", // ✅ use Resend's sandbox sender
         to,
         subject,
         html: htmlContent,
@@ -22,6 +22,7 @@ export class EmailService {
         return { success: false, error };
       }
 
+      console.log("✅ Email sent successfully via Resend Sandbox!");
       return { success: true, data };
     } catch (err: any) {
       console.error("Email sending failed:", err);

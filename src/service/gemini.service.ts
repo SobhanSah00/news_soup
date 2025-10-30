@@ -1,8 +1,10 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 import { config } from "../config/enviorment.js";
 
-const genAI = new GoogleGenerativeAI(config.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const AI = new GoogleGenAI({
+  apiKey: config.GEMINI_API_KEY
+});
+// const model = AI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 export class GeminiService {
   async summarizeArticles(articles: any[]) {
@@ -49,9 +51,22 @@ OUTPUT FORMAT (use exactly this structure):
 
 Write the summary now:`;
 
-      const result = await model.generateContent(prompt);
-      const text = result.response.text();
-      summaries.push(text.trim());
+      const result = await await AI.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+      });
+      const text = result.text;
+
+      console.log("Summerized gemini text are :",text);
+      
+
+      if(text) {
+        summaries.push(text.trim());
+      }
+      else {
+        throw new Error("something went wrong in gemini service funciton in generationg ig . . .")
+      }
+      
     }
 
     return summaries;
