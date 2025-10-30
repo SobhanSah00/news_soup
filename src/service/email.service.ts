@@ -11,7 +11,7 @@ export class EmailService {
   async sendDigest(to: string, subject: string, htmlContent: string) {
     try {
       const { data, error } = await this.resend.emails.send({
-        from: "onboarding@resend.dev", // ✅ use Resend's sandbox sender
+        from: "onboarding@resend.dev", 
         to,
         subject,
         html: htmlContent,

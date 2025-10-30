@@ -17,11 +17,13 @@ import { NewsService } from "./service/news.service.js";
 import { GeminiService } from "./service/gemini.service.js";
 import { EmailService } from "./service/email.service.js";
 import { SMSService } from "./service/sms.service.js";
+import { WhatsAppMessageService } from "./service/whatspp.service.js";
 const port = process.env.PORT || 8000;
 const news = new NewsService();
 const gemini = new GeminiService();
 const email = new EmailService();
 const sms = new SMSService();
+const whatsappSms = new WhatsAppMessageService();
 app.get("/test-digest", async (req, res) => {
     try {
         const topics = ["Technology"];
@@ -36,6 +38,7 @@ app.get("/test-digest", async (req, res) => {
         // Send notifications (optional during testing)
         await email.sendDigest("sobhansahoo2000@gmail.com", "📰 AI News Digest (Manual Test)", htmlDigest);
         await sms.sendSMS("+919040006148", smsDigest);
+        await whatsappSms.sendWhatsApp("919040006148", smsDigest);
         console.log("✅ Manual digest sent successfully!");
         res.json({ message: "Manual digest sent successfully", htmlDigest });
     }
